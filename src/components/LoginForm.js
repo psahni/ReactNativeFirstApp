@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 
+const EMAIL = "admin@logrhythm.com";
+const PASSWORD = 'pass123'
+
 class LoginForm extends Component {
   state = { email: '', password: '', error: '', loading: false };
+
+  constructor({ setLogin, setLogout, loggedIn }) {
+    super();
+    this.setLogin = setLogin;
+  }
 
   onButtonPress() {
     const { email, password } = this.state;
 
-    this.setState({ error: '', loading: true });
-    this.onLoginSuccess();
+    if ( email == EMAIL && password == PASSWORD ) {
+      this.setState({ error: '', loading: true });
+      this.onLoginSuccess();
+    }
+    else {
+      this.onLoginFail();
+    }
   }
 
   onLoginFail() {
@@ -23,6 +36,8 @@ class LoginForm extends Component {
       loading: false,
       error: ''
     });
+    console.log("login is successful..");
+    this.setLogin();
   }
 
   renderButton() {
