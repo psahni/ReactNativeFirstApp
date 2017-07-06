@@ -18,48 +18,52 @@ import LoginForm from './src/components/LoginForm';
 
 export default class caseApi extends Component {
 
+  state = { loggedIn: false, text: 'Login' };
+
   constructor(props) {
     super(props);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    this.loggedIn = this.loggedIn.bind(this);
+    this.userLoggedIn = this.userLoggedIn.bind(this);
+    this.getScreenText = this.getScreenText.bind(this);
     this.renderComponent = this.renderComponent.bind(this);
-
-    this.state = { loggedIn: false };
   }
 
   login() {
-    console.log("logging....");
-    this.setState({ loggedIn: true });
-    console.log(this.state.loggedIn);
+    console.log("-> User is logging in");
+    this.setState({ loggedIn: true, text: 'Cases' });
   }
 
   logout() {
-    this.setState({ loggedIn: false });
+    console.log("-> User is logging out");
+    this.setState({ loggedIn: false, text: 'Login' });
   }
 
-  loggedIn() {
-    return this.state.loggedIn;
+  userLoggedIn() {
+    return !!this.state.loggedIn;
+  }
+
+  getScreenText() {
+    return this.state.text;
   }
 
   renderComponent() {
-    console.log("rendering component..");
-    if (this.loggedIn()) {
-      return (
-        <View>
-          <Header text="Cases"/>
-          <Cases />
-        </View>
-      );
+    const components = [];
+    console.log("rendering component..", this.state.text);
+    components.push(
+      <Header key= "header" getScreenText={this.getScreenText} userLoggedIn={this.userLoggedIn} setLogout={this.logout}/>
+    )
+
+    if (this.userLoggedIn()) {
+      components.push(
+        <Cases key= "cases" setLogout={this.logout}/>
+      )
+    } else {
+      components.push(
+        <LoginForm key= "LoginForm" userLoggedIn={this.userLoggedIn} setLogin={this.login}/>
+      )
     }
-    else {
-      return (
-        <View>
-          <Header text="Login"/>
-          <LoginForm loggedIn={this.loggedIn()} setLogin={this.login} setLogout={this.logout}/>
-        </View>
-      );
-    }
+    return components;
   }
 
   render() {
@@ -76,16 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
    }
-  // welcome: {
-  //   fontSize: 20,
-  //   textAlign: 'center',
-  //   margin: 10,
-  // },
-  // instructions: {
-  //   textAlign: 'center',
-  //   color: '#333333',
-  //   marginBottom: 5,
-  // },
 });
 
 AppRegistry.registerComponent('caseApi', () => caseApi);

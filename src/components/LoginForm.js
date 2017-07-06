@@ -8,7 +8,7 @@ const PASSWORD = 'pass123'
 class LoginForm extends Component {
   state = { email: '', password: '', error: '', loading: false };
 
-  constructor({ setLogin, setLogout, loggedIn }) {
+  constructor({ setLogin, setLogout, userLoggedIn }) {
     super();
     this.setLogin = setLogin;
   }
