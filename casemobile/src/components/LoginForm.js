@@ -1,55 +1,35 @@
 import React, { Component } from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Form, Item, Input, Label } from 'native-base';
+import { authenticate, getToken } from '../authentication';
 
 const EMAIL = "admin";
 const PASSWORD = 'pass123'
 
 class LoginForm extends Component {
-  state = { email: '', password: '', error: '', loading: false };
+  
+  constructor(props) {
+    super(props);
+    this.props = props; 
+    this.state = {
+      email : '',
+      password : '',
+      token :''
+    }   
+  } 
 
-  constructor({ setLogin, setLogout, userLoggedIn }) {
-    super();
-    this.setLogin = setLogin;
-  }
+//onPress={this.onButtonPress.bind(this)}
 
   onButtonPress() {
-    const { email, password } = this.state;
-
-    if ( email == EMAIL && password == PASSWORD ) {
-      this.setState({ error: '', loading: true });
-      this.onLoginSuccess();
-    }
-    else {
-      this.onLoginFail();
-    } 
+   let email = this.state.email,
+   password = this.state.password;
+   const loginResp = authenticate(email,password);
+   if(loginResp.token){
+    alert('token available');
+   } else {
+    alert('token un-available ' + JSON.stringify(loginResp));
+   }
   }
-
-  onLoginFail() {
-    this.setState({ error: 'Authentication Failed', loading: false });
-  }
-
-  onLoginSuccess() {
-    this.setState({
-      email: '',
-      password: '',
-      loading: false,
-      error: ''
-    });
-    console.log("login is successful..");
-    this.setLogin();
-  }
-
-  renderButton() {
-    if (this.state.loading) {
-      return <Spinner size="small" />;
-    }
-
-    return (
-      <Button onPress={this.onButtonPress.bind(this)}>
-        Log in
-      </Button>
-    );
-  }
+  
 
   render() {
     return (
@@ -68,9 +48,9 @@ class LoginForm extends Component {
               <Input 
                 secureTextEntry                
                 value={this.state.password}
-                onChangeText={password => this.setState({ password })}
+                onChangeText={password => {console.log(arguments);return this.setState({ password });}}
               />
-            </Item>            
+            </Item>                        
           </Form>
           <Button full
             onPress={this.onButtonPress.bind(this)}

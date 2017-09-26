@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:5555";
 const URL = {
     apiBase: `${BASE_URL}`,
-    login: `${BASE_URL}/authenticate`,
+    login: `${BASE_URL}/login`,
     logout: `${BASE_URL}/logout`,
     cases: `${BASE_URL}/cases`,
 };
