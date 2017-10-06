@@ -10,26 +10,28 @@ const users = [
 const tokens = [];
 
 const authenticate = (req, res) => {
-    const { userName, password } = req;
-    const token = req.headers.authentication;
+    console.log("Recived Request for authentication : " , req.body);
+    const { userName, password } = req.body;
+    const token = req.headers.authentication;    
     if (token) {
         const existingConnection = tokens.find(tokens, { token, userName });
         if (existingConnection) {
             return res.send(existingConnection);
         }
     }
-
-    const isValid = _.findIndex(users, { userName, password }) >= 0;
+    const isValid = _.findIndex(users, { userName, password }) >= 0;        
 
     if (isValid) {
+        console.log("isValid TRUE");
         const newToken = { token: uuid(), userName };
 
         tokens.push(newToken);
 
         return res.send(newToken);
-    }
-
-    res.status(401).send("Invalid credentials");
+    } else{
+        console.log("isValid FALSE");
+        res.status(401).send("Invalid credentials");
+    }    
 }
 
 const logout = (req, res) => {

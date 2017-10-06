@@ -12,10 +12,12 @@ const throwIfNotOk = (response) => {
 };
 
 export const fetchFromService = (route, token = '', data = {}) => {
+    const reqHeaders = new Headers();
+    reqHeaders.append("Content-Type","application/json");
     const fetchConfig = {
         method: route.method,
         body: _.isEmpty(data) ? null : JSON.stringify(data),
-        headers: new Headers(route.header),
+        headers: reqHeaders,
         timeout: _.isUndefined(route.timeout) ? null : route.timeout,
         credentials: 'same-origin',
     };
@@ -24,7 +26,7 @@ export const fetchFromService = (route, token = '', data = {}) => {
         fetchConfig.append('authentication', token);
 
     }
-    console.log("Fetch congig ", fetchConfig);
+    console.log("Fetch congig ", fetchConfig, route.path, "https://requestb.in/105luo41");
     return fetch(route.path, fetchConfig)
         .then(throwIfNotOk)
         .then(response => response.json());
