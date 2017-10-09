@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Form, Item, Input, Label } from 'native-base';
 import { authenticate, getToken } from '../authentication';
+import { Actions } from 'react-native-router-flux';
 
 const EMAIL = "admin";
 const PASSWORD = 'pass123'
@@ -22,12 +23,17 @@ class LoginForm extends Component {
   onButtonPress() {
    let email = this.state.email,
    password = this.state.password;
-   const loginResp = authenticate(email,password);
-   if(loginResp.token){
-    alert('token available');
-   } else {
-    alert('token un-available ' + JSON.stringify(loginResp));
-   }
+   
+   authenticate(email,password).then((loginResp) => {
+    console.log("Fair login respose ", loginResp);    
+    if(loginResp.token){
+     console.log("response onButton press true",loginResp);      
+     Actions.cases();
+    } else {     
+     console.log("response onButton press false",loginResp);     
+     alert('token un-available ' + JSON.stringify(loginResp));
+    }
+   });   
   }
   
 

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 const throwIfNotOk = (response) => {
-    console.log("This is repose from node servaer ",response);
+    console.log("This is repose from node server ",response);
     if (!response.ok) {
         return response.text().then(body => {
             console.log("Body is ", body);
