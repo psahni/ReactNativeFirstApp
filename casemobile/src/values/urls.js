@@ -9,8 +9,9 @@ const URL = {
 const routes = {
     login: { method: 'POST', path: URL.login },
     logout: { method: 'GET', path: URL.logout },
-    cases: { method: 'get', path: URL.cases },
-    caseDetails: (id) => ({ method: 'GET', path: `${URL.cases}/${is}` }),
+    cases: { method: 'GET', path: URL.cases },
+    caseDetails: (id) => ({ method: 'GET', path: `${URL.cases}/${id}` }),
+    createCase : { method: 'POST', path: URL.cases },
 };
 
 export {

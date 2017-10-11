@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Form, Item, Input, Label } from 'native-base';
 import { authenticate, getToken } from '../authentication';
 import { Actions } from 'react-native-router-flux';
@@ -26,17 +27,22 @@ class LoginForm extends Component {
    
    authenticate(email,password).then((loginResp) => {
     console.log("Fair login respose ", loginResp);    
-    if(loginResp.token){
-     console.log("response onButton press true",loginResp);      
-     Actions.cases();
+    if(Boolean(loginResp)){
+      if(loginResp.token){
+        console.log("response onButton press true",loginResp);          
+        Actions.cases();
+       } else {
+         console.log("login Respose is available but no token")
+       }
     } else {     
      console.log("response onButton press false",loginResp);     
-     alert('token un-available ' + JSON.stringify(loginResp));
+     Alert.alert('Invalid Credentials', 'Either Email or Passowrd is incorrect',[      
+      {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},      
+    ]);
     }
    });   
   }
   
-
   render() {
     return (
      <Container>        

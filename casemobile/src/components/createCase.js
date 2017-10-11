@@ -3,6 +3,8 @@ import { View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Title, Content, Footer, FooterTab,  Left, Right, Body, Icon, Text, Form, Item, Input, Label,ListItem, Radio, Button } from 'native-base';
 import RadioForm from 'react-native-radio-form';
+import { authenticate, getToken,isAuthenticated } from '../authentication';
+import { createCaseReq } from '../caseactions';
 
 const mockData = [
     {
@@ -38,49 +40,38 @@ class CreateCase extends Component {
       age : "",
       summary : "",
       collaborator:"",
-      tag :"",
-      dummy :"",
-      output:[],
-      headingtext:"Priority"
+      tag :"",                  
+      priority:""
 	    }
 	}	
 
-	_handlePress() {
-		console.log('Pressed!');
-	}
-
-	_createCase() {		
-        fetch('https://requestb.in/1g4ltza1', {
-          method: 'POST',              
-          body: JSON.stringify({
-                name: this.state.desc,
-                priority: 5,
-                externalId: "CaseSummary",
-                summary: this.state.summary,
-                tag : this.state.tag,
-                collaborator : this.state.collaborator
-              })
-        }).then((response) => {
-         console.log("response : " + response);
-          
-        });          
-	}
-
 	_onSelect = ( item ) => {
-      console.log(item);
-    };
+      console.log(item);      
+      this.setState({priority:item});
+    };    
 
-    renderButton() {
-	    if (this.state.loading) {
-	      return <Spinner size="small" />;
-	    }
-
-	    return (
-	      <Button onPress={this._createCase.bind(this)}>
-	        Create Case
-	      </Button>
-	    );
+    onPressCreateCase(){
+      console.log("current stage of state", this.state);
+      createCaseReq(this.state).then((createCaseResp) => {
+        console.log("Case Response",createCaseResp);
+        if(createCaseReq.statusName == "Created"){
+          this.setState({desc : "",
+          dueDate : "",
+          age : "",
+          summary : "",
+          collaborator:"",
+          tag :"",                  
+          priority:""});
+          Actions.cases();
+        } else {
+          Alert.alert('Error Occured', 'Error occured while saving case',[      
+            {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},      
+          ]);
+        }
+      });
     }
+
+
 
   render () {
   	return (
@@ -91,6 +82,7 @@ class CreateCase extends Component {
               <Label>Description</Label>
               <Input 
               	value = {this.state.desc}
+                onChangeText={desc => this.setState({ desc })}
               />
             </Item>
             <View style={{ marginHorizontal: 20 }}>
@@ -104,74 +96,46 @@ class CreateCase extends Component {
                 initial={this.state.priority}
                 formHorizontal={true}
                 labelHorizontal={true}
-                onPress={(item) => this._onSelect(item)}/>
+                onPress={(item) => this._onSelect(item.value)}/>
             </View>
             <Item floatingLabel>
               <Label>Due Date</Label>
               <Input 
               	value = {this.state.dueDate}
+                onChangeText={dueDate => this.setState({ dueDate })}
               />
             </Item>
             <Item floatingLabel>
               <Label>Summary</Label>
               <Input 
               	value = {this.state.summary}
+                onChangeText={summary => this.setState({ summary })}
               />
             </Item>
             <Item floatingLabel>
               <Label>Add Collaborator</Label>
               <Input 
               	value = {this.state.collaborator}
+                onChangeText={collaborator => this.setState({ collaborator })}
               />
             </Item>
             <Item floatingLabel>
               <Label>Tag</Label>
               <Input 
               	value = {this.state.tag}
+                onChangeText={tag => this.setState({ tag })}
               />
             </Item>            
           </Form>
-          <Button full>
+          <Button full 
+          onPress={this.onPressCreateCase.bind(this)}
+          >
 	          <Text>Create Case</Text>
 	        </Button>
         </Content>
       </Container>
   	)
   }
-
 }
-
-// const styles = StyleSheet.create({
-//   "container": {
-//   	"flex" : 1,    
-//     "backgroundColor": "#3498db",
-//     "padding": 10
-//   },
-//   "continpbox":{
-//     "flex" : 7
-//   },
-//   "contbtn":{
-//     "flex" : 1    
-//   },
-//   "textInputWrapper": {
-//     "flex": 1    
-//   },  
-//   "textTopMargin": {
-//     "flex": 1,"marginTop": 70
-//   },
-//   "inputbox": {
-//     "backgroundColor": "rgba(255,255,255,0.2)",
-//     "color": "black",
-//     "paddingHorizontal": 10
-//   },
-//   "rowrflex": {
-//     "flex": 1,
-//     "flexDirection": "row",
-//   },  
-//   viewStyle: {
-//     paddingTop: 50,
-//     paddingBottom: 50,
-//   },
-// });
 
 export default CreateCase;
