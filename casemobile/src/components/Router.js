@@ -14,6 +14,9 @@ const RouterComponent = () => (
       <Scene key='caseDetail' component={CaseDetail} title="Case Properties" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}}/>
       <Scene key='createCase' component={CreateCase} title="Create Case" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}}/>
     </Scene>
+    <View style={{paddingLeft:120}}>
+                 <Button style={{paddingLeft:80}} onPress={()=>Actions.LoginForm()}  title="Log Out" titleStyle={{color: 'white'}}/>
+    </View>  
   </Router>
 );
 export default RouterComponent;
