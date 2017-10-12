@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Accordion from 'react-native-collapsible/Accordion';
 import { Actions } from 'react-native-router-flux';
+import { getCases } from '../caseactions';
 
 import { Text, View, StyleSheet } from 'react-native';
 
@@ -9,6 +10,10 @@ import { Text, View, StyleSheet } from 'react-native';
 class CaseList extends Component {
    componentWillMount() {
     console.log('2. componentWillMount in Case List', this.state.cases);
+    getCases().then((allcases) =>{
+      console.log("All cases are : ", allcases );
+      this.setState({cases:allcases.reverse()});
+    });
   }
 
   constructor(props) {
@@ -16,11 +21,11 @@ class CaseList extends Component {
     const { setLogout } = props;
     this.state = {
       cases: [
-        { id: 1, name: 'Case 1', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        { id: 2, name: 'Case 2', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-        { id: 3, name: 'Case 3', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        { id: 4, name: 'Case 4', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        { id: 5, name: 'Case 5', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
+        { id: 1, name: 'Case 1', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
+        { id: 2, name: 'Case 2', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
+        { id: 3, name: 'Case 3', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
+        { id: 4, name: 'Case 4', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
+        { id: 5, name: 'Case 5', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
       ]
     };
   }
@@ -36,15 +41,15 @@ class CaseList extends Component {
   _renderContent(_case) {
     return (
       <View>
-        <Text>{_case.description}</Text>
-        <Text style={styles.caseLinkStyle} onPress={()=>Actions.caseDetail({id: _case.id})}>More..</Text>
+        <Text>{_case.summary}</Text>
+        <Text style={styles.caseLinkStyle} onPress={()=>Actions.caseDetail({id: _case.id, selectedCase :_case})}>More..</Text>
       </View>
     );
   }
 
   render() {
     return (
-      <Accordion
+      <Accordion 
         sections={this.state.cases}
         renderHeader={this._renderHeader}
         renderContent={this._renderContent}

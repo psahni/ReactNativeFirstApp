@@ -4,8 +4,14 @@ import { routes } from './values/urls'
 let token = '';
 let user = {};
 
-export const authenticate = (userName, password) => {
-	console.log("Request receied " , userName , password);
+function fetchCred(uname,pwd){
+    let unames = ["admin"];
+};
+
+//Temporary code
+export const authenticateMeanwhile = (userName, password) => {
+    console.log("Request receied " , userName , password);    
+
     return fetchFromService(routes.login, '', { userName, password })
         .then((data) => {
             token = data.token;
@@ -15,6 +21,20 @@ export const authenticate = (userName, password) => {
         	console.log(err);
         });
 }
+
+
+// export const authenticate = (userName, password) => {
+//     console.log("Request receied " , userName , password);    
+
+//     return fetchFromService(routes.login, '', { userName, password })
+//         .then((data) => {
+//             token = data.token;
+//             console.log("Data is : " , data);
+//             return data;
+//         }).catch((err)=>{
+//         	console.log(err);
+//         });
+// }
 
 export const getToken = () => {
     return token;

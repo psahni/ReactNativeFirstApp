@@ -34,14 +34,19 @@ class CreateCase extends Component {
 	constructor(props) {
     super(props);
     this.props = props;
+    // this.state = {
+    //   name : "",
+    //   dueDate : "",
+    //   age : "",
+    //   summary : "",
+    //   collaborator:"",
+    //   tag :"",                  
+    //   priority:""
+    //   }
     this.state = {
-      desc : "",
-      dueDate : "",
-      age : "",
-      summary : "",
-      collaborator:"",
-      tag :"",                  
-      priority:""
+        name : "",
+        summary : "",
+        priority:""
 	    }
 	}	
 
@@ -54,13 +59,9 @@ class CreateCase extends Component {
       console.log("current stage of state", this.state);
       createCaseReq(this.state).then((createCaseResp) => {
         console.log("Case Response",createCaseResp);
-        if(createCaseReq.statusName == "Created"){
-          this.setState({desc : "",
-          dueDate : "",
-          age : "",
+        if(createCaseResp.status.name == "Created"){
+          this.setState({name : "",
           summary : "",
-          collaborator:"",
-          tag :"",                  
           priority:""});
           Actions.cases();
         } else {
@@ -79,10 +80,10 @@ class CreateCase extends Component {
         <Content>
           <Form>
             <Item floatingLabel style={{"flex": 1,"marginTop": 70}}>
-              <Label>Description</Label>
+              <Label>Name</Label>
               <Input 
-              	value = {this.state.desc}
-                onChangeText={desc => this.setState({ desc })}
+              	value = {this.state.name}
+                onChangeText={name => this.setState({ name })}
               />
             </Item>
             <View style={{ marginHorizontal: 20 }}>
@@ -96,15 +97,15 @@ class CreateCase extends Component {
                 initial={this.state.priority}
                 formHorizontal={true}
                 labelHorizontal={true}
-                onPress={(item) => this._onSelect(item.value)}/>
+                onPress={(item) => this._onSelect(parseInt(item.value))}/>
             </View>
-            <Item floatingLabel>
+            {/* <Item floatingLabel>
               <Label>Due Date</Label>
               <Input 
               	value = {this.state.dueDate}
                 onChangeText={dueDate => this.setState({ dueDate })}
               />
-            </Item>
+            </Item> */}
             <Item floatingLabel>
               <Label>Summary</Label>
               <Input 
@@ -112,20 +113,20 @@ class CreateCase extends Component {
                 onChangeText={summary => this.setState({ summary })}
               />
             </Item>
-            <Item floatingLabel>
+            {/* <Item floatingLabel>
               <Label>Add Collaborator</Label>
               <Input 
               	value = {this.state.collaborator}
                 onChangeText={collaborator => this.setState({ collaborator })}
               />
-            </Item>
-            <Item floatingLabel>
+            </Item> */}
+            {/* <Item floatingLabel>
               <Label>Tag</Label>
               <Input 
               	value = {this.state.tag}
                 onChangeText={tag => this.setState({ tag })}
               />
-            </Item>            
+            </Item>             */}
           </Form>
           <Button full 
           onPress={this.onPressCreateCase.bind(this)}

@@ -31,24 +31,29 @@ const mockData = [
 
 class CaseDetail extends Component {
 
-  constructor(props) {
+  constructor(props) {    
     super(props);
     this.props = props;
-    this.state = {
-      caseDetails: [],
-      caseSummary :'hello',
-      priority:'2',
-      status:'NA',
-      desc:"",
-      dueDate:"",
-      age:"",
-      summary:"",
-      collaborators:"",
-      tag:"",
-      resol:""
+        // this.state = {
+    //   caseDetails: [],
+    //   caseSummary :'hello',
+    //   priority:'2',
+    //   status:'NA',
+    //   desc:"",
+    //   dueDate:"",
+    //   age:"",
+    //   summary:"",
+    //   collaborators:"",
+    //   tag:"",
+    //   resol:""
 
-    }
+    // }
+   
+    console.log("Constructor " , this.props.selectedCase);   
+
   }
+
+ 
  
   _onSelect = ( item ) => {
       console.log(item);
@@ -58,13 +63,7 @@ class CaseDetail extends Component {
     console.log('Pressed!');
   }
 
-  getCaseDetails() {
-   if(this.state.caseDetail) {
-      return this.state.caseDetail;
-    } else {
-      return '12345';
-    }
-  }
+ 
 
   render() {
     return(
@@ -75,7 +74,7 @@ class CaseDetail extends Component {
             <Item stackedLabel>
               <Label>Description</Label>
               <Input
-                value = {this.state.desc} 
+                value = {this.props.selectedCase.name} 
                 editable={false}
               />
             </Item>
@@ -87,7 +86,7 @@ class CaseDetail extends Component {
                 itemShowKey="label"
                 itemRealKey="value"
                 circleSize={16}
-                initial={this.state.priority}
+                initial={this.props.selectedCase.priority}
                 formHorizontal={true}
                 labelHorizontal={true}
                 onPress={(item) => this._onSelect(item)}/>
@@ -95,42 +94,42 @@ class CaseDetail extends Component {
             <Item stackedLabel>
               <Label>Due Date</Label>
               <Input
-                value = {this.state.dueDate} 
+                value = {this.props.selectedCase.dueDate} 
                 editable={false}
               />
             </Item>
             <Item stackedLabel>
               <Label>Age</Label>
               <Input
-                value = {this.state.age} 
+                value = {this.props.selectedCase.caseage} 
                 editable={false}
               />
             </Item>
             <Item stackedLabel>
               <Label>Summary</Label>
               <Input
-                value = {this.state.summary} 
+                value = {this.props.selectedCase.summary} 
                 editable={false}
               />
             </Item>
             <Item stackedLabel>
               <Label>Collaborators</Label>
               <Input
-                value = {this.state.collaborators} 
+                value = {this.props.selectedCase.collaborators.join(' ')} 
                 editable={false}
               />
             </Item>
             <Item stackedLabel>
               <Label>Tags</Label>
               <Input
-                value = {this.state.tag} 
+                value = {this.props.selectedCase.tags.join(' ')} 
                 editable={false}
               />
             </Item>
             <Item stackedLabel>
               <Label>Resolution</Label>
               <Input
-                value = {this.state.resol} 
+                value = {this.props.selectedCase.status.name} 
                 editable={false}
               />
             </Item>

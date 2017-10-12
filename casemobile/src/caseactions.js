@@ -12,3 +12,13 @@ export const createCaseReq = (caseObject) => {
         });
 }
 
+export const getCases = () => {
+    console.log("Request receied ");
+    return fetchFromService(routes.cases, '')
+        .then((data) => {            
+            console.log("Get Case response : " , data);
+            return data;
+        }).catch((err)=>{
+        	console.log(err);
+        });
+}
