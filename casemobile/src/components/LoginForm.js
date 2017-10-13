@@ -30,7 +30,7 @@ class LoginForm extends Component {
    } else if (email == "admin1" && password == "logrhythm!1"){
     Actions.cases();
    } else {
-     console.log("response onButton press false",loginResp);     
+     //console.log("response onButton press false",loginResp);     
      Alert.alert('Invalid Credentials', 'Either Email or Passowrd is incorrect',[      
       {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},      
     ]);

@@ -97,14 +97,7 @@ class CaseDetail extends Component {
                 value = {this.props.selectedCase.dueDate} 
                 editable={false}
               />
-            </Item>
-            <Item stackedLabel>
-              <Label>Age</Label>
-              <Input
-                value = {this.props.selectedCase.caseage} 
-                editable={false}
-              />
-            </Item>
+            </Item>            
             <Item stackedLabel>
               <Label>Summary</Label>
               <Input
@@ -115,7 +108,7 @@ class CaseDetail extends Component {
             <Item stackedLabel>
               <Label>Collaborators</Label>
               <Input
-                value = {this.props.selectedCase.collaborators.join(' ')} 
+                value = {this.props.selectedCase.collaborators[0].name} 
                 editable={false}
               />
             </Item>

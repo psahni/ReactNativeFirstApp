@@ -17,7 +17,16 @@ export const getCases = () => {
     return fetchFromService(routes.cases, '')
         .then((data) => {            
             console.log("Get Case response : " , data);
-            return data;
+            let reversedArr =[];
+            for(let arrLength = (data.length-1); arrLength > 0; arrLength--){        
+                console.log("Pushing into revered array",data[arrLength]);
+                reversedArr.push(data[arrLength]);
+                console.log("Reversed Arry : ", reversedArr.length);
+            }
+            console.log("reversedArr ",reversedArr);
+            let sliced = reversedArr.slice(0,10);            
+            console.log("sliced ", sliced);
+            return sliced;
         }).catch((err)=>{
         	console.log(err);
         });

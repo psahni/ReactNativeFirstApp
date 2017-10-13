@@ -11,8 +11,18 @@ class CaseList extends Component {
    componentWillMount() {
     console.log('2. componentWillMount in Case List', this.state.cases);
     getCases().then((allcases) =>{
-      console.log("All cases are : ", allcases );
-      this.setState({cases:allcases.reverse()});
+      console.log("All cases are : ", allcases);
+      console.log("All cases length : ", allcases.length);
+      // let reversedArr =[];
+      // for(let arrLength = allcases.length; arrLength > 0; arrLength--){        
+      //   reversedArr.push(allcases[arrLength]);
+      //   console.log("Reversed Arry : ", reversedArr.length);
+      // }
+      // console.log("reversedArr ",reversedArr);
+      // let spliced = reversedArr.slice(0,5);            
+      // console.log("spliced ", spliced);
+      this.setState({cases:allcases});
+      //this.setState({cases:allcases.reverse()});
     });
   }
 
