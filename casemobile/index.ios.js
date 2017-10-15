@@ -2,7 +2,7 @@ import {
   AppRegistry,
 } from 'react-native';
 
-import {casemobile} from './app'
+import casemobile from './app';
 
 export default casemobile;
 

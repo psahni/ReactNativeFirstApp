@@ -1,5 +1,5 @@
 //const BASE_URL = "http://172.16.69.166:4567";
-const BASE_URL = "http://172.16.69.166:4567"
+const BASE_URL = "http://localhost:5555"
 const URL = {
     apiBase: `${BASE_URL}`,
     login: `${BASE_URL}/login`,
