@@ -14,10 +14,31 @@ import {
   Text,
   View
 } from 'react-native';
+import {fetchServerDetails, getBaseURL} from './src/config.js';
 import RouterComponent from './src/components/Router';
 
 export default class casemobile extends Component {
-  render() {       
+  constructor(){
+    super();
+    console.log("started");
+    this.state= {
+      isLoading: true
+    }
+  }
+
+  componentDidMount() {
+    fetchServerDetails().then((value) => {
+      this.setState({
+        isLoading: false
+      });
+    });
+  }
+
+  render() {
+    if (this.state.isLoading) {
+      return <View><Text>Loading...</Text></View>;
+    }
+
     return (
         <View>
             <Home isAuthenticated = {isAuthenticated()}/>

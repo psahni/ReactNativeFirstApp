@@ -21,6 +21,14 @@ function createProxyUrl(originalUrl) {
 /*-----------------------------------------------------------------*/
 
 app.all("/*", function(request, response) {
+  console.log(request.originalUrl, request.originalUrl.indexOf("login"), request.body)
+  if(request.originalUrl.indexOf("login") >= 0 ) {
+    const {userName, password} = request.body;
+    if(userName == 'admin' && password=='admin'){
+      const bearerToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2ODJiMzdmMS0zMDJkLTQ0OTMtOTkxNS0zODAxNDkwNTJkNDgiLCJjaWQiOiI3MzhFMTlEMC02ODU3LTRFNjMtOTA2My1DMkYzMEE5NTdFMzciLCJpc3MiOiJsci1hdXRoIiwicmlkIjoic2VydmljZUFjY291bnQiLCJwaWQiOjIsInN1YiI6IkNhc2UgQXBwIiwiZXhwIjozMDg1OTI2NjE0LCJpYXQiOjE1MDgwNzkwMTR9.svSWuKmeBWJ2HwIjmxjk5Fow-SHP3S6P6C1znGwm-5jYXI7ONpwUs0BixD_cZfpvML3Vh0IJQ6sXs9yH_VpWUCvn5X5D_CTPiAgnDGzhJoCvmSw3QoFiseAGP_TA1sVqysXEWZYTd9-qQamdntemJrEn2hWvzhrkp3sgYT7deTD7M367A0gMPZ431i37l10S5eg4HBM-yYAPCI75CpuRi8RpMccx1ox3GyPUpj6C0w4IBG_hYZbY2wzRQk7R-adKS8VrL0h4x1C9Bn8JCkBhnaQx4WLvMGr0LO5dkuSMT_2vQt_MRE8zFCnS6Ey_C_m195vgeU32s1dokaH_nOh3Jw";
+      return response.send({userName: userName, accessToken: bearerToken});
+    }
+  }
   var uri = createProxyUrl(request.originalUrl);
 
   var agentOptions = {
@@ -46,7 +54,7 @@ app.all("/*", function(request, response) {
      if(err){
          return response.send(err);
      }
-     response.send(res.body);
+     response.status(res.statusCode).send(res.body);
   });
 });
 

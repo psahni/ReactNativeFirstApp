@@ -9,16 +9,14 @@ function fetchCred(uname,pwd){
 };
 
 //Temporary code
-export const authenticateMeanwhile = (userName, password) => {
+export const authenticate = (userName, password) => {
     console.log("Request receied " , userName , password);    
 
-    return fetchFromService(routes.login, '', { userName, password })
+    return fetchFromService(routes().login, '', { userName, password })
         .then((data) => {
-            token = data.token;
+            token = data.accessToken;
             console.log("Data is : " , data);
             return data;
-        }).catch((err)=>{
-        	console.log(err);
         });
 }
 
@@ -45,5 +43,5 @@ export const isAuthenticated = () => {
 }
 
 export const logout = () => {
-    return fetchFromService(routes.logout, getToken());
+    return fetchFromService(routes().logout, getToken());
 }

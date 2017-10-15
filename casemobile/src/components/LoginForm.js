@@ -22,10 +22,19 @@ class LoginForm extends Component {
 //onPress={this.onButtonPress.bind(this)}
 
   onButtonPress() {
-   let email = this.state.email,
+   let userName = this.state.email,
    password = this.state.password;
 
-   if(email == "admin" && password == "admin"){
+    authenticate(userName, password)
+    .then(()=>{
+      Actions.cases();
+    })
+    .catch(()=>{
+      Alert.alert('Invalid Credentials', 'Either Email or Passowrd is incorrect',[      
+        {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},      
+      ]);
+    })
+   /*if(email == "admin" && password == "admin"){
     Actions.cases();
    } else if (email == "admin1" && password == "logrhythm!1"){
     Actions.cases();
@@ -33,7 +42,7 @@ class LoginForm extends Component {
      //console.log("response onButton press false",loginResp);     
      Alert.alert('Invalid Credentials', 'Either Email or Passowrd is incorrect',[      
       {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},      
-    ]);
+    ]);*/
 
    }
    
@@ -52,8 +61,7 @@ class LoginForm extends Component {
   //     {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},      
   //   ]);
   //   }
-  //  });   
-  }
+  //  });
   
   render() {
     return (

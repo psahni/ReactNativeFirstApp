@@ -12,7 +12,7 @@ class CaseList extends Component {
     console.log('2. componentWillMount in Case List', this.state.cases);
     getCases().then((allcases) =>{
       console.log("All cases are : ", allcases);
-      console.log("All cases length : ", allcases.length);
+      //console.log("All cases length : ", allcases.length);
       // let reversedArr =[];
       // for(let arrLength = allcases.length; arrLength > 0; arrLength--){        
       //   reversedArr.push(allcases[arrLength]);

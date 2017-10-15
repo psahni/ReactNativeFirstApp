@@ -15,10 +15,13 @@ import {
 import Header  from './header';
 import Cases  from './cases';
 import LoginForm from './LoginForm';
+import Configure from './configure';
+
+import { getBaseURL } from '../config.js';
 
 class Home extends Component {
 
-  state = { loggedIn: false, text: 'Login' };
+  state = { loggedIn: false, text: getBaseURL() ? 'Login' : 'Configuration' };
 
   constructor(props) {
     super(props);
@@ -57,10 +60,15 @@ class Home extends Component {
       components.push(
         <Cases key= "cases" setLogout={this.logout}/>
       )
+    }    
+    else if(getBaseURL()) {
+      components.push(
+        <LoginForm key= "LoginForm" userLoggedIn={this.userLoggedIn} setLogin={this.login}/>
+      )
     }
     else {
       components.push(
-        <LoginForm key= "LoginForm" userLoggedIn={this.userLoggedIn} setLogin={this.login}/>
+        <Configure key="configuration-form"/>
       )
     }
 

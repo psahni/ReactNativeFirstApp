@@ -3,7 +3,7 @@ import { routes } from './values/urls';
 
 export const createCaseReq = (caseObject) => {
 	console.log("Request receied " , caseObject);
-    return fetchFromService(routes.createCase, '',  caseObject )
+    return fetchFromService(routes().createCase, '',  caseObject )
         .then((data) => {            
             console.log("Case response : " , data);
             return data;
@@ -14,8 +14,11 @@ export const createCaseReq = (caseObject) => {
 
 export const getCases = () => {
     console.log("Request receied ");
-    return fetchFromService(routes.cases, '')
-        .then((data) => {            
+    return fetchFromService(routes().cases, '')
+        .then((data) => {
+            if(!data){
+                return;
+            }
             console.log("Get Case response : " , data);
             let reversedArr =[];
             for(let arrLength = (data.length-1); arrLength > 0; arrLength--){        

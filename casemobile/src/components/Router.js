@@ -11,7 +11,7 @@ const RouterComponent = () => (
   <Router>
     
      <Scene key="root">     
-      <Scene key="home" component={Home}   title="LR Case Tracker" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}}/>
+      <Scene key="home" component={Home}   title="Dashboard" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}}/>
       <Scene key='cases' component={CaseList} title="Case List" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} onRight={() => Actions.home()} rightTitle = "LogOut" rightButtonTextStyle={{color: 'white'}}/>
       <Scene key='caseDetail' component={CaseDetail} title="Case Properties" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} onRight={() => Actions.home()} rightTitle = "LogOut" rightButtonTextStyle={{color: 'white'}}/>
       <Scene key='createCase' component={CreateCase} title="Create Case" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} onRight={() => Actions.home()} rightTitle = "LogOut" rightButtonTextStyle={{color: 'white'}}/>
