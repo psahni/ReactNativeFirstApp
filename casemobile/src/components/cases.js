@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Image } from 'react-native';
+import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import Accordion from 'react-native-collapsible/Accordion';
 import { Actions } from 'react-native-router-flux';
 import { getCases } from '../caseactions';
 
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 // Make a component
 
@@ -40,33 +42,124 @@ class CaseList extends Component {
     };
   }
 
-  _renderHeader(_case) {
-    return (
-      <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>{_case.name}</Text>
-      </View>
-    );
+  // _renderHeader(_case) {
+  //   return (
+  //     <View style={styles.viewStyle}>
+  //       <Text style={styles.textStyle}>{_case.name}</Text>
+  //     </View>
+  //   );
+  // }
+
+  // _renderContent(_case) {
+  //   return (
+  //     <View>
+  //       <Text>{_case.summary}</Text>
+  //       <Text style={styles.caseLinkStyle} onPress={()=>Actions.caseDetail({id: _case.id, selectedCase :_case})}>More..</Text>
+  //     </View>
+  //   );
+  // }
+
+  // render() {
+  //   return (
+  //     <Accordion 
+  //       sections={this.state.cases}
+  //       renderHeader={this._renderHeader}
+  //       renderContent={this._renderContent}
+  //       underlayColor="white"
+  //   />
+  // )}
+
+render() {
+  //var items = [{name:'Simon Mignolet',prio:1},{name:'Nathaniel Clyne',prio:2},{name:'Dejan Lovren',prio:3},{name:'Mama Sakho',prio:2},{name:'Emre Can',prio:1}];
+  let items = this.state.cases;
+  
+  const getStatusName = (item)=> {
+    console.log(item);
+    console.log(item.status);
+    console.log(item.status.name);
+    return "Created";
+  };
+
+
+  const formattedDueDate = (item) => {
+    if (!item.dueDate) return;
+    
+    const  date = new Date(item.dueDate);
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   }
 
-  _renderContent(_case) {
-    return (
-      <View>
-        <Text>{_case.summary}</Text>
-        <Text style={styles.caseLinkStyle} onPress={()=>Actions.caseDetail({id: _case.id, selectedCase :_case})}>More..</Text>
-      </View>
-    );
-  }
-
-  render() {
-    return (
-      <Accordion 
-        sections={this.state.cases}
-        renderHeader={this._renderHeader}
-        renderContent={this._renderContent}
-        underlayColor="white"
-    />
+  return (
+      <Container>
+        
+          <List dataArray = {items} 
+            renderRow={(item) => 
+            <ListItem>
+              <Content>
+                <Card>
+                  <CardItem>
+                    <Left>              
+                      <Body>
+                        <Text>{item.name}</Text>
+                        <Text note>Created</Text>
+                      </Body>
+                    </Left>
+                  </CardItem>         
+                  <CardItem>
+                    <Left>
+                      <Button transparent>                        
+                        <Text textStyle={{color:"#8BC34A"}} >Priority : {item.priority}</Text>
+                      </Button>
+                    </Left>                    
+                    <Right>
+                      <Text>Due On : {formattedDueDate(item)}</Text>
+                    </Right>
+                  </CardItem>
+                </Card>
+              </Content>
+            </ListItem>
+            }
+          >
+          </List>
+        
+      </Container>
   )}
 }
+
+//   render() {
+//     return (
+//       <Container>      
+//       <Content>
+//         <Card>
+//           <CardItem>
+//             <Left>              
+//               <Body>
+//                 <Text>This is a case</Text>
+//                 <Text note>Incident</Text>
+//               </Body>
+//             </Left>
+//           </CardItem>         
+//           <CardItem>
+//             <Left>
+//               <Button transparent>
+//                 <Icon active name="thumbs-up" />
+//                 <Text>Priority : 3</Text>
+//               </Button>
+//             </Left>
+//             {/* <Body>
+//               <Button transparent>
+//                 <Icon active name="chatbubbles" />
+//                 <Text>4 Comments</Text>
+//               </Button>
+//             </Body> */}
+//             <Right>
+//               <Text>11h ago</Text>
+//             </Right>
+//           </CardItem>
+//         </Card>
+//       </Content>
+//     </Container>
+//   )}
+// }
 
 const styles = StyleSheet.create({
   viewStyle: {
@@ -89,3 +182,4 @@ const styles = StyleSheet.create({
 });
 
 export default CaseList;
+
