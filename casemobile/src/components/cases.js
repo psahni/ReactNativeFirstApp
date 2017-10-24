@@ -111,9 +111,9 @@ render() {
                       </Button>
                     </Left>
                     <Body>
-                      <Button transparent>                        
+                      
                         <Text>Due On : {formattedDueDate(item)}</Text>
-                      </Button>
+                      
                     </Body>                    
                     <Right>
                       <Text onPress={()=>{console.log("I was pressed",item);Actions.caseDetail({selectedCase:item})}}>More..</Text>

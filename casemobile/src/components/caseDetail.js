@@ -66,6 +66,12 @@ class CaseDetail extends Component {
  
 
   render() {
+    const formattedDueDate = (item) => {
+      if (!item.dueDate) return;
+      
+      const  date = new Date(item.dueDate);
+      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    }
     return(
       <Container>
         <Header />
@@ -86,7 +92,7 @@ class CaseDetail extends Component {
                 itemShowKey="label"
                 itemRealKey="value"
                 circleSize={16}
-                initial={this.props.selectedCase.priority}
+                initial={parseInt(this.props.selectedCase.priority)-1} //temporary jugad
                 formHorizontal={true}
                 labelHorizontal={true}
                 onPress={(item) => this._onSelect(item)}/>
@@ -94,7 +100,8 @@ class CaseDetail extends Component {
             <Item stackedLabel>
               <Label>Due Date</Label>
               <Input
-                value = {this.props.selectedCase.dueDate} 
+                //value = {this.props.selectedCase.dueDate} 
+                value = {formattedDueDate(this.props.selectedCase)}
                 editable={false}
               />
             </Item>            
