@@ -107,11 +107,16 @@ render() {
                   <CardItem>
                     <Left>
                       <Button transparent>                        
-                        <Text textStyle={{color:"#8BC34A"}} >Priority : {item.priority}</Text>
+                        <Text>P : {item.priority}</Text>
                       </Button>
-                    </Left>                    
+                    </Left>
+                    <Body>
+                      <Button transparent>                        
+                        <Text>Due On : {formattedDueDate(item)}</Text>
+                      </Button>
+                    </Body>                    
                     <Right>
-                      <Text>Due On : {formattedDueDate(item)}</Text>
+                      <Text onPress={()=>{console.log("I was pressed",item);Actions.caseDetail({selectedCase:item})}}>More..</Text>
                     </Right>
                   </CardItem>
                 </Card>
