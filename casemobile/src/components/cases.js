@@ -83,15 +83,8 @@ render() {
       5:'#164664',
     }
     console.log(statusColors[item.status.number]);
-    return {borderLeftWidth:2, borderLeftColor:statusColors[item.status.number]};
+    return {borderLeftWidth:2, borderLeftColor:`${statusColors[item.status.number]}`};
   }
-  const getStatusName = (item)=> {
-    console.log(item);
-    console.log(item.status);
-    console.log(item.status.name);
-    return "Created";
-  };
-
 
   const formattedDueDate = (item) => {
     if (!item.dueDate) return;
@@ -112,7 +105,7 @@ render() {
                     <Left>              
                       <Body>
                         <Text>{item.name}</Text>
-                        <Text note>"Created"</Text>
+                        <Text note>{`${item.status.name}`}</Text>
                       </Body>
                     </Left>
                   </CardItem>
