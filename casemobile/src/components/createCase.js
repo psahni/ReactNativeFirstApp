@@ -33,16 +33,7 @@ class CreateCase extends Component {
 
 	constructor(props) {
     super(props);
-    this.props = props;
-    // this.state = {
-    //   name : "",
-    //   dueDate : "",
-    //   age : "",
-    //   summary : "",
-    //   collaborator:"",
-    //   tag :"",                  
-    //   priority:""
-    //   }
+    this.props = props;    
     this.state = {
         name : "",
         summary : "",
@@ -86,8 +77,10 @@ class CreateCase extends Component {
                 onChangeText={name => this.setState({ name })}
               />
             </Item>
-            <View style={{ marginHorizontal: 20 }}>
-              <Label>Priority</Label>
+            <View>
+            <Item style={{borderBottomWidth:0,marginTop: 15}}>
+                  <Label >Priority</Label>   
+              </Item>
               <RadioForm
                 style={{ width: 350 - 30 }}
                 dataSource={mockData}
@@ -98,41 +91,24 @@ class CreateCase extends Component {
                 formHorizontal={true}
                 labelHorizontal={true}
                 onPress={(item) => this._onSelect(parseInt(item.value))}/>
-            </View>
-            {/* <Item floatingLabel>
-              <Label>Due Date</Label>
-              <Input 
-              	value = {this.state.dueDate}
-                onChangeText={dueDate => this.setState({ dueDate })}
-              />
-            </Item> */}
+            </View>            
             <Item floatingLabel>
               <Label>Summary</Label>
               <Input 
               	value = {this.state.summary}
                 onChangeText={summary => this.setState({ summary })}
               />
-            </Item>
-            {/* <Item floatingLabel>
-              <Label>Add Collaborator</Label>
-              <Input 
-              	value = {this.state.collaborator}
-                onChangeText={collaborator => this.setState({ collaborator })}
-              />
-            </Item> */}
-            {/* <Item floatingLabel>
-              <Label>Tag</Label>
-              <Input 
-              	value = {this.state.tag}
-                onChangeText={tag => this.setState({ tag })}
-              />
-            </Item>             */}
+            </Item>          
           </Form>
-          <Button full 
-          onPress={this.onPressCreateCase.bind(this)}
-          >
-	          <Text>Create Case</Text>
-	        </Button>
+          <Content>
+            <Item style={{borderBottomWidth:0,marginTop: 15}}>            
+            </Item>
+            <Button full 
+              onPress={this.onPressCreateCase.bind(this)}
+              >
+                <Text>Create Case</Text>
+            </Button>           
+          </Content>
         </Content>
       </Container>
   	)

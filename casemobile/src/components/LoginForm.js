@@ -84,11 +84,15 @@ class LoginForm extends Component {
               />
             </Item>                        
           </Form>
-          <Button full
+          <Content>
+          <Item style={{borderBottomWidth:0,marginTop: 15}}>
+          </Item>
+          <Button block full
             onPress={this.onButtonPress.bind(this)}
           >
             <Text>Log In </Text>
           </Button>
+          </Content>  
         </Content>
       </Container>
     );

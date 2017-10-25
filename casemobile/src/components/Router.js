@@ -8,15 +8,18 @@ import CaseList from './cases';
 import { View, Button } from 'react-native';
 
 const RouterComponent = () => (
-  <Router>
-    
+  <Router>    
      <Scene key="root">     
-      <Scene key="home" component={Home}   title="Dashboard" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}}/>
+      <Scene key="home" component={Home}   title="" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} />
       <Scene key='cases' component={CaseList} title="Case List" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} onRight={() => Actions.home()} rightTitle = "LogOut" rightButtonTextStyle={{color: 'white'}}/>
-      <Scene key='caseDetail' component={CaseDetail} title="Case Properties" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} onRight={() => Actions.home()} rightTitle = "LogOut" rightButtonTextStyle={{color: 'white'}}/>
+      <Scene key='caseDetail' component={CaseDetail} title="Case Properties" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} onRight={() => Actions.home() } rightTitle = "LogOut" rightButtonTextStyle={{color: 'white'}}/>
       <Scene key='createCase' component={CreateCase} title="Create Case" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} onRight={() => Actions.home()} rightTitle = "LogOut" rightButtonTextStyle={{color: 'white'}}/>
-     </Scene>    
-    
+     </Scene>        
   </Router>
 );
 export default RouterComponent;
+
+//onRight={() => Actions.home()} rightButtonImage={require('./menu-alt-512.png')}
+
+//from cases ---- rightButtonImage={require('./menu-alt-512.png')}
+//from caseDetail ---- leftButtonImage={require('./menu-alt-512.png')}

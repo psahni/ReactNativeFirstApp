@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button } from 'react-native';
+import { View, Button,Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Title, Content, Footer, FooterTab,  Left, Right, Body, Icon, Text, Form, Item, Input, Label,ListItem, Radio } from 'native-base';
 import RadioForm from 'react-native-radio-form';
@@ -61,6 +61,13 @@ class CaseDetail extends Component {
 
    _handlePress() {
     console.log('Pressed!');
+    Alert.alert(
+      'Inforamtion',
+      'Implementation pending',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')}
+      ]
+    )
   }
 
  
@@ -84,8 +91,11 @@ class CaseDetail extends Component {
                 editable={false}
               />
             </Item>
-            <View style={{ marginHorizontal: 20 }}>
-              <Label>Priority</Label>
+            <View >
+              <Item style={{borderBottomWidth:0,marginTop: 15}}>
+                  <Label >Priority</Label>   
+              </Item>
+              {/* <Label>Priority</Label> */}
               <RadioForm
                 style={{ width: 350 - 30 }}
                 dataSource={mockData}
@@ -133,17 +143,16 @@ class CaseDetail extends Component {
                 editable={false}
               />
             </Item>
-            <View style={{flexDirection:'row'}}>            
-              <Button onPress={() => this._handlePress()}  title="Created" color="#303f9f"/>
+            <View style={{flexDirection:'row'}}>                          
                 <View style={{paddingLeft:10}}>
                   <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Incident" color="#303f9f"/>
                 </View>
                 <View style={{paddingLeft:10}}>
                  <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Completed" color="#303f9f"/>
                 </View>
-                <View style={{paddingLeft:10}}>
+                {/* <View style={{paddingLeft:10}}>
                  <Button style={{paddingLeft:80}} onPress={()=>Actions.createCase()}  title="New" color="#303f9f"/>
-                </View>             
+                </View>              */}
             </View>
           </Form>
         </Content>

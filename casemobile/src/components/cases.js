@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right,View,Fab } from 'native-base';
 import Accordion from 'react-native-collapsible/Accordion';
 import { Actions } from 'react-native-router-flux';
 import { getCases } from '../caseactions';
 
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 // Make a component
 
@@ -33,12 +33,13 @@ class CaseList extends Component {
     const { setLogout } = props;
     this.state = {
       cases: [
-        //{ id: 1, name: 'Case 1', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        //{ id: 2, name: 'Case 2', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-        //{ id: 3, name: 'Case 3', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        //{ id: 4, name: 'Case 4', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        //{ id: 5, name: 'Case 5', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-      ]
+        // { id: 1, name: 'Case 1', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
+        // { id: 2, name: 'Case 2', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
+        // { id: 3, name: 'Case 3', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
+        // { id: 4, name: 'Case 4', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
+        // { id: 5, name: 'Case 5', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
+      ],
+      active: 'true'
     };
   }
 
@@ -106,29 +107,32 @@ render() {
             renderRow={(item) => 
             <ListItem>
               <Content>
-                <Card style={getCardStyle(item)}>
+                <Card style={getCardStyle(item)} onTouchStart={()=>{console.log("On Press");Actions.caseDetail({selectedCase:item})}}>
                   <CardItem>
                     <Left>              
                       <Body>
                         <Text>{item.name}</Text>
-                        <Text note>{item.status.name}</Text>
+                        <Text note>"Created"</Text>
                       </Body>
                     </Left>
-                  </CardItem>         
+                  </CardItem>
                   <CardItem>
                     <Left>
-                      <Button transparent>                        
-                        <Text>P : {item.priority}</Text>
-                      </Button>
+                      <Body>
+                        <Content>
+                        <Button large transparent>
+                          <Text>P : {item.priority}</Text>
+                        </Button>                          
+                        </Content>                        
+                      </Body>
                     </Left>
-                    <Body>
-                      
-                        <Text>Due On : {formattedDueDate(item)}</Text>
-                      
-                    </Body>                    
-                    <Right>
-                      <Text onPress={()=>{console.log("I was pressed",item);Actions.caseDetail({selectedCase:item})}}>More..</Text>
-                    </Right>
+                  </CardItem>           
+                  <CardItem>
+                    <Left>
+                      <Body>                      
+                        <Text>Due On : {formattedDueDate(item)}</Text>                      
+                      </Body>
+                    </Left>                                                            
                   </CardItem>
                 </Card>
               </Content>
@@ -136,7 +140,17 @@ render() {
             }
           >
           </List>
-        
+          <View style={{ flex: 1 }}>
+            <Fab
+              active={this.state.active}
+              direction="up"
+              containerStyle={{ }}
+              style={{ backgroundColor: '#5067FF' }}
+              position="bottomRight"
+              onPress={()=>Actions.createCase()}>
+              <Icon name="add" />
+            </Fab>
+          </View>
       </Container>
   )}
 }
