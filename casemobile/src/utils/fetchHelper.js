@@ -4,7 +4,6 @@ import { getToken } from '../authentication';
 const throwIfNotOk = (response) => {
     console.log("This is repose from node server ", response);
     if (!response.ok) {
-        debugger;
         return response.text().then(body => {
             console.log("Body is ", body);
             const error = JSON.parse(body);
