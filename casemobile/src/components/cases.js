@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right,View,Fab } from 'native-base';
-import Accordion from 'react-native-collapsible/Accordion';
+import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button,Icon, Left, Body, Right,View,Fab } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { getCases } from '../caseactions';
-
+import { Col, Row, Grid } from 'react-native-easy-grid';
 import { StyleSheet } from 'react-native';
 
 // Make a component
@@ -83,7 +82,7 @@ render() {
       5:'#164664',
     }
     console.log(statusColors[item.status.number]);
-    return {borderLeftWidth:2, borderLeftColor:`${statusColors[item.status.number]}`};
+    return {borderLeftWidth:4, borderLeftColor:`${statusColors[item.status.number]}`};
   }
 
   const formattedDueDate = (item) => {
@@ -94,46 +93,43 @@ render() {
   }
 
   return (
-      <Container>
-        
+      <Container>  
+             
           <List dataArray = {items} 
             renderRow={(item) => 
             <ListItem>
               <Content>
-                <Card style={getCardStyle(item)} onTouchStart={()=>{console.log("On Press");Actions.caseDetail({selectedCase:item})}}>
-                  <CardItem>
-                    <Left>              
-                      <Body>
-                        <Text>{item.name}</Text>
-                        <Text note>{`${item.status.name}`}</Text>
-                      </Body>
-                    </Left>
-                  </CardItem>
-                  <CardItem>
-                    <Left>
-                      <Body>
-                        <Content>
-                        <Button large transparent>
-                          <Text>P : {item.priority}</Text>
-                        </Button>                          
-                        </Content>                        
-                      </Body>
-                    </Left>
-                  </CardItem>           
-                  <CardItem>
-                    <Left>
-                      <Body>                      
-                        <Text>Due On : {formattedDueDate(item)}</Text>                      
-                      </Body>
-                    </Left>                                                            
-                  </CardItem>
+                <Card style={getCardStyle(item)}>
+                  <CardItem>                    
+                    <Grid>
+                      <Row>
+                        <Col size={1}>                          
+                          <Row style={{justifyContent: 'center',alignItems: 'center'}}>                          
+                            <Text style={{fontSize:30}}>P : {item.priority}</Text>  
+                          </Row>                          
+                        </Col>
+                        <Col size={2}>                          
+                          <Row>                          
+                            <Text style={{fontWeight:'bold'}}>{item.name}</Text>
+                          </Row> 
+                          <Row>                          
+                          <Text style={{fontSize:12}}>Status : {`${item.status.name}`}</Text>
+                          </Row> 
+                          <Row>                          
+                            <Text style={{fontSize:12}}>Due On : {formattedDueDate(item)}</Text>
+                          </Row>                                            
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </CardItem>                      
                 </Card>
               </Content>
             </ListItem>
             }
           >
-          </List>
-          <View style={{ flex: 1 }}>
+          </List>          
+        
+        <View style={{ flex: 1 }}>
             <Fab
               active={this.state.active}
               direction="up"
@@ -183,6 +179,7 @@ render() {
 //     </Container>
 //   )}
 // }
+//  onTouchStart={()=>{console.log("On Press");Actions.caseDetail({selectedCase:item})}}
 
 const styles = StyleSheet.create({
   viewStyle: {

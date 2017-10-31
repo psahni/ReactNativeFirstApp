@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Title, Content, Footer, FooterTab,  Left, Right, Body, Icon, Text, Form, Item, Input, Label,ListItem, Radio, Button } from 'native-base';
+import { Container, Header, Title, Content, Footer, FooterTab,  Left, Right, Body, Icon, Text, Picker, Form, Input, Label,ListItem, Radio, Button,Item } from 'native-base';
 import RadioForm from 'react-native-radio-form';
 import { authenticate, getToken,isAuthenticated } from '../authentication';
 import { createCaseReq } from '../caseactions';
-
+//const Item = Picker.Item;
 const mockData = [
     {
         label: '1',
@@ -37,7 +37,8 @@ class CreateCase extends Component {
     this.state = {
         name : "",
         summary : "",
-        priority:""
+        priority:"",
+        
 	    }
 	}	
 
@@ -62,53 +63,50 @@ class CreateCase extends Component {
         }
       });
     }
-
+   
 
 
   render () {
   	return (
   		<Container>        
-        <Content>
-          <Form>
-            <Item floatingLabel style={{"flex": 1,"marginTop": 70}}>
-              <Label>Name</Label>
-              <Input 
-              	value = {this.state.name}
-                onChangeText={name => this.setState({ name })}
-              />
+        <Content style={{padding:15}}>          
+          <Item floatingLabel>
+            <Label>Name</Label>
+            <Input 
+              value = {this.state.name}
+              onChangeText={name => this.setState({ name })}
+            />
+          </Item>
+          <View>
+          <Item style={{borderBottomWidth:0,marginTop: 15}}>
+                <Label >Priority</Label>   
             </Item>
-            <View>
-            <Item style={{borderBottomWidth:0,marginTop: 15}}>
-                  <Label >Priority</Label>   
-              </Item>
-              <RadioForm
-                style={{ width: 350 - 30 }}
-                dataSource={mockData}
-                itemShowKey="label"
-                itemRealKey="value"
-                circleSize={16}
-                initial={this.state.priority}
-                formHorizontal={true}
-                labelHorizontal={true}
-                onPress={(item) => this._onSelect(parseInt(item.value))}/>
-            </View>            
-            <Item floatingLabel>
-              <Label>Summary</Label>
-              <Input 
-              	value = {this.state.summary}
-                onChangeText={summary => this.setState({ summary })}
-              />
-            </Item>          
-          </Form>
-          <Content>
-            <Item style={{borderBottomWidth:0,marginTop: 15}}>            
-            </Item>
-            <Button full 
-              onPress={this.onPressCreateCase.bind(this)}
-              >
-                <Text>Create Case</Text>
-            </Button>           
-          </Content>
+            <RadioForm
+              style={{ width: 350 - 30 }}
+              dataSource={mockData}
+              itemShowKey="label"
+              itemRealKey="value"
+              circleSize={16}
+              initial={this.state.priority}
+              formHorizontal={true}
+              labelHorizontal={true}
+              onPress={(item) => this._onSelect(parseInt(item.value))}/>
+          </View>            
+          <Item floatingLabel>
+            <Label>Summary</Label>
+            <Input 
+              value = {this.state.summary}
+              onChangeText={summary => this.setState({ summary })}
+            />
+          </Item>          
+          <Item style={{borderBottomWidth:0,marginTop: 25}}>            
+          </Item>
+          <Button full 
+            onPress={this.onPressCreateCase.bind(this)}
+            >
+              <Text>Create Case</Text>
+          </Button>                     
+          
         </Content>
       </Container>
   	)

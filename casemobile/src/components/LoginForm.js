@@ -66,33 +66,34 @@ class LoginForm extends Component {
   render() {
     return (
      <Container>        
-        <Content>
-          <Form>
-            <Item floatingLabel>
-              <Label>Email</Label>
-              <Input                 
-                value={this.state.email}
-                onChangeText={email => this.setState({ email })}
-               />
-            </Item>
-            <Item floatingLabel>
-              <Label>Password</Label>
-              <Input 
-                secureTextEntry                
-                value={this.state.password}
-                onChangeText={password => {console.log(arguments);return this.setState({ password });}}
+        <Content style={{padding:15}}>                  
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Input                 
+              value={this.state.email}
+              onChangeText={email => this.setState({ email })}
               />
-            </Item>                        
-          </Form>
-          <Content>
-          <Item style={{borderBottomWidth:0,marginTop: 15}}>
           </Item>
-          <Button block full
-            onPress={this.onButtonPress.bind(this)}
-          >
+          <Item floatingLabel>
+            <Label>Password</Label>
+            <Input 
+              secureTextEntry                
+              value={this.state.password}
+              onChangeText={password => {console.log(arguments);return this.setState({ password });}}
+            />
+          </Item>
+          <Item style={{borderBottomWidth:0,marginTop: 25}}>            
+          </Item>
+          <Button block
+              onPress={this.onButtonPress.bind(this)}
+            >
             <Text>Log In </Text>
           </Button>
-          </Content>  
+          {/* <Content >
+          
+          
+          </Content>  */}
+            
         </Content>
       </Container>
     );
