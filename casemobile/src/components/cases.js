@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button,Icon, Left, Body, Right,View,Fab } from 'native-base';
+import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right,View,Fab } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Actions } from 'react-native-router-flux';
 import { getCases } from '../caseactions';
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -13,17 +14,9 @@ class CaseList extends Component {
     console.log('2. componentWillMount in Case List', this.state.cases);
     getCases().then((allcases) =>{
       console.log("All cases are : ", allcases);
-      //console.log("All cases length : ", allcases.length);
-      // let reversedArr =[];
-      // for(let arrLength = allcases.length; arrLength > 0; arrLength--){        
-      //   reversedArr.push(allcases[arrLength]);
-      //   console.log("Reversed Arry : ", reversedArr.length);
-      // }
-      // console.log("reversedArr ",reversedArr);
-      // let spliced = reversedArr.slice(0,5);            
-      // console.log("spliced ", spliced);
+      
       this.setState({cases:allcases});
-      //this.setState({cases:allcases.reverse()});
+      
     });
   }
 
@@ -42,35 +35,12 @@ class CaseList extends Component {
     };
   }
 
-  // _renderHeader(_case) {
-  //   return (
-  //     <View style={styles.viewStyle}>
-  //       <Text style={styles.textStyle}>{_case.name}</Text>
-  //     </View>
-  //   );
-  // }
+ 
 
-  // _renderContent(_case) {
-  //   return (
-  //     <View>
-  //       <Text>{_case.summary}</Text>
-  //       <Text style={styles.caseLinkStyle} onPress={()=>Actions.caseDetail({id: _case.id, selectedCase :_case})}>More..</Text>
-  //     </View>
-  //   );
-  // }
-
-  // render() {
-  //   return (
-  //     <Accordion 
-  //       sections={this.state.cases}
-  //       renderHeader={this._renderHeader}
-  //       renderContent={this._renderContent}
-  //       underlayColor="white"
-  //   />
-  // )}
+  
 
 render() {
-  //var items = [{name:'Simon Mignolet',prio:1},{name:'Nathaniel Clyne',prio:2},{name:'Dejan Lovren',prio:3},{name:'Mama Sakho',prio:2},{name:'Emre Can',prio:1}];
+  
   let items = this.state.cases;
   
   const getCardStyle = (item) => {
@@ -97,18 +67,24 @@ render() {
              
           <List dataArray = {items} 
             renderRow={(item) => 
-            <ListItem>
+            <ListItem style={{borderBottomWidth:0}}>
               <Content>
                 <Card style={getCardStyle(item)}>
                   <CardItem>                    
                     <Grid>
                       <Row>
-                        <Col size={1}>                          
-                          <Row style={{justifyContent: 'center',alignItems: 'center'}}>                          
-                            <Text style={{fontSize:30}}>P : {item.priority}</Text>  
-                          </Row>                          
-                        </Col>
                         <Col size={2}>                          
+                        <Row style={{justifyContent: 'center',alignItems: 'center'}}>                          
+                            <Content>
+                              <Left>
+                                <Text style={{fontSize:30}}>P : {item.priority}</Text>  
+                              </Left> 
+                            </Content>  
+                          </Row>                        
+                        </Col>
+                        <Col size={1}>                                              
+                        </Col>
+                        <Col size={4}>                          
                           <Row>                          
                             <Text style={{fontWeight:'bold'}}>{item.name}</Text>
                           </Row> 
@@ -118,6 +94,19 @@ render() {
                           <Row>                          
                             <Text style={{fontSize:12}}>Due On : {formattedDueDate(item)}</Text>
                           </Row>                                            
+                        </Col>
+                        <Col size={1}>
+                          <Row size={90}>                          
+                              
+                          </Row>                            
+                          <Row size={10}>
+                            <Content>
+                              <Right>
+                                <Icon name='expand-more' style={{fontSize: 20, color: 'black'}} onPress={()=>{console.log("Pressed");Actions.caseDetail({selectedCase:item})}}/>                          
+                              </Right>
+                            </Content>                          
+                          
+                          </Row> 
                         </Col>
                       </Row>
                     </Grid>
@@ -179,7 +168,7 @@ render() {
 //     </Container>
 //   )}
 // }
-//  onTouchStart={()=>{console.log("On Press");Actions.caseDetail({selectedCase:item})}}
+{()=>{console.log("On Press");Actions.caseDetail({selectedCase:item})}}
 
 const styles = StyleSheet.create({
   viewStyle: {

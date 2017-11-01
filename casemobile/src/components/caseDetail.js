@@ -3,7 +3,7 @@ import { View, Button,Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Title, Content, Footer, FooterTab,  Left, Right, Body, Icon, Text, Form, Item, Input, Label,ListItem, Radio } from 'native-base';
 import RadioForm from 'react-native-radio-form';
-
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 const mockData = [
     {
@@ -82,8 +82,8 @@ class CaseDetail extends Component {
     return(
       <Container>
         <Header />
-        <Content>          
-          <Form>
+        <Content style={{padding:15}}>          
+          
             <Item stackedLabel>
               <Label>Description</Label>
               <Input
@@ -143,18 +143,34 @@ class CaseDetail extends Component {
                 editable={false}
               />
             </Item>
-            <View style={{flexDirection:'row'}}>                          
+            <Item style={{borderBottomWidth:0,marginTop: 25}}>            
+            </Item>
+            <Item>            
+              <Grid>
+                <Row>
+                  <Col size={3}>
+                    <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Incident" color="#303f9f"/>
+                  </Col>
+                  <Col size={1}>
+                    
+                  </Col>
+                  <Col size={3}>
+                    <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Completed" color="#303f9f"/>
+                  </Col>
+                </Row>
+              </Grid>  
+            </Item>
+            <Item style={{borderBottomWidth:0,marginTop: 25}}>            
+            </Item>
+            {/* <View style={{flexDirection:'row'}}>                          
                 <View style={{paddingLeft:10}}>
                   <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Incident" color="#303f9f"/>
                 </View>
                 <View style={{paddingLeft:10}}>
                  <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Completed" color="#303f9f"/>
-                </View>
-                {/* <View style={{paddingLeft:10}}>
-                 <Button style={{paddingLeft:80}} onPress={()=>Actions.createCase()}  title="New" color="#303f9f"/>
-                </View>              */}
-            </View>
-          </Form>
+                </View>               
+            </View> */}
+          
         </Content>
       </Container>
     )
