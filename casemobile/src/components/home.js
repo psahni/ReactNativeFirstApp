@@ -53,9 +53,9 @@ class Home extends Component {
   renderComponent() {
     const components = [];
     console.log("rendering component..", this.state.text);
-    components.push(
+    /*components.push(
       <Header key="header" getScreenText={this.getScreenText} userLoggedIn={this.userLoggedIn} setLogout={this.logout}/>
-    )
+    )*/
     if (this.userLoggedIn()) {
       components.push(
         <Cases key= "cases" setLogout={this.logout}/>

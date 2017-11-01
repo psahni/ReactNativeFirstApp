@@ -4,10 +4,15 @@ import { getToken } from '../authentication';
 const throwIfNotOk = (response) => {
     console.log("This is repose from node server ", response);
     if (!response.ok) {
+        console.log('Not ok');
         return response.text().then(body => {
-            console.log("Body is ", body);
-            const error = JSON.parse(body);
-            throw new Object({ status: error.statusCode, message: error.message || 'Error: Something went wrong' });
+            let error ={statusCode :response.status}
+            try {
+                error = JSON.parse(body)
+            } catch (e) {
+            }
+            
+            throw new Object({ status: error.statusCode, message: error.message || `${error.statusCode}Error: Something went wrong` });
         });
     }
     return response;
@@ -17,6 +22,7 @@ export const fetchFromService = (route, token = '', data = {}) => {
     console.log("fetch ser ", data);
     const bearerToken = `Bearer ${getToken()}`;
     const reqHeaders = new Headers();
+    reqHeaders.append("Accept","application/json");
     reqHeaders.append("Content-Type","application/json");
     reqHeaders.append("Authorization", bearerToken);
     const fetchConfig = {

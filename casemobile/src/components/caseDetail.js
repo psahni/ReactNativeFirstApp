@@ -5,6 +5,8 @@ import { Container, Header, Title, Content, Footer, FooterTab,  Left, Right, Bod
 import RadioForm from 'react-native-radio-form';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
+import {colors} from '../utils/colors';
+
 const mockData = [
     {
         label: '1',
@@ -149,13 +151,13 @@ class CaseDetail extends Component {
               <Grid>
                 <Row>
                   <Col size={3}>
-                    <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Incident" color="#303f9f"/>
+                    <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Incident" color={colors.colorButton}/>
                   </Col>
                   <Col size={1}>
                     
                   </Col>
                   <Col size={3}>
-                    <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Completed" color="#303f9f"/>
+                    <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Completed" color={colors.colorButton}/>
                   </Col>
                 </Row>
               </Grid>  
@@ -164,10 +166,10 @@ class CaseDetail extends Component {
             </Item>
             {/* <View style={{flexDirection:'row'}}>                          
                 <View style={{paddingLeft:10}}>
-                  <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Incident" color="#303f9f"/>
+                  <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Incident" color={colors.colorButton}/>
                 </View>
                 <View style={{paddingLeft:10}}>
-                 <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Completed" color="#303f9f"/>
+                 <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Completed" color={colors.colorButton}/>
                 </View>               
             </View> */}
           
