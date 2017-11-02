@@ -14,6 +14,7 @@ const routes = () => ({
     cases: { method: 'GET', path: URL().cases },
     caseDetails: (id) => ({ method: 'GET', path: `${URL().cases}/${id}` }),
     createCase : { method: 'POST', path: URL().cases },
+    updateCaseStatus :(id) => ({method: 'PUT' , path:`${URL().cases}/${id}/actions/changeStatus`})
     
 });
 

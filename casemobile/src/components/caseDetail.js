@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Button,Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Title, Content, Footer, FooterTab,  Left, Right, Body, Icon, Text, Form, Item, Input, Label,ListItem, Radio } from 'native-base';
+import { Container, Header, Title, Content, Footer, FooterTab,  Left, Right, Body, Icon, Text, Form, Item, Input, Label,ListItem, Radio,Button } from 'native-base';
 import RadioForm from 'react-native-radio-form';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import { updateCaseStatus } from '../caseactions';
 
 import {colors} from '../utils/colors';
 
@@ -34,45 +35,40 @@ const mockData = [
 class CaseDetail extends Component {
 
   constructor(props) {    
-    super(props);
-    this.props = props;
-        // this.state = {
-    //   caseDetails: [],
-    //   caseSummary :'hello',
-    //   priority:'2',
-    //   status:'NA',
-    //   desc:"",
-    //   dueDate:"",
-    //   age:"",
-    //   summary:"",
-    //   collaborators:"",
-    //   tag:"",
-    //   resol:""
-
-    // }
-   
+    super(props);    
+    this.state = {    
+      caseid : "",      
+      completed:2
+    }   
     console.log("Constructor " , this.props.selectedCase);   
-
   }
 
- 
+  componentWillMount() {    
+    this.setState({ caseid: this.props.selectedCase.id});
+  }
  
   _onSelect = ( item ) => {
       console.log(item);
    };
 
-   _handlePress() {
-    console.log('Pressed!');
-    Alert.alert(
-      'Inforamtion',
-      'Implementation pending',
-      [
-        {text: 'OK', onPress: () => console.log('OK Pressed')}
-      ]
-    )
+  updateStatus(id,status) {
+      console.log("Status received in method " + status);
+      updateCaseStatus(id,status).then((updatedResponse)=>{
+        console.log("PUT Response ", updatedResponse );
+        this.props.selectedCase.status.name = updatedResponse.status.name;
+        console.log("Updated property : " , this.props.selectedCase.status.name );
+      });
+
+    // console.log('Pressed for status ' + status);
+    // Alert.alert(
+    //   'Inforamtion',
+    //   'Implementation pending',
+    //   [
+    //     {text: 'OK', onPress: () => console.log('OK Pressed')}
+    //   ]
+    // )
   }
 
- 
 
   render() {
     const formattedDueDate = (item) => {
@@ -81,9 +77,9 @@ class CaseDetail extends Component {
       const  date = new Date(item.dueDate);
       return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
     }
+    
     return(
-      <Container>
-        <Header />
+      <Container>        
         <Content style={{padding:15}}>          
           
             <Item stackedLabel>
@@ -146,22 +142,12 @@ class CaseDetail extends Component {
               />
             </Item>
             <Item style={{borderBottomWidth:0,marginTop: 25}}>            
-            </Item>
-            <Item>            
-              <Grid>
-                <Row>
-                  <Col size={3}>
-                    <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Incident" color={colors.colorButton}/>
-                  </Col>
-                  <Col size={1}>
-                    
-                  </Col>
-                  <Col size={3}>
-                    <Button style={{paddingLeft:80}} onPress={() => this._handlePress()}  title="Completed" color={colors.colorButton}/>
-                  </Col>
-                </Row>
-              </Grid>  
-            </Item>
+            </Item>            
+            <Button full 
+            onPress={() => this.updateStatus(this.state.caseid,{statusNumber:this.state.completed})}
+            >
+              <Text>Complete</Text>
+            </Button>           
             <Item style={{borderBottomWidth:0,marginTop: 25}}>            
             </Item>
             {/* <View style={{flexDirection:'row'}}>                          
