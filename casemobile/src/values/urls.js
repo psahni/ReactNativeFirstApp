@@ -3,7 +3,7 @@
 import {getBaseURL} from "../config";
 const URL = () => ({
     apiBase: `${getBaseURL()}`,
-    login: `${getBaseURL()}/login`,
+    login: `${getBaseURL()}/lr-web-console-api/authenticate`,
     logout: `${getBaseURL()}/logout`,
     cases: `${getBaseURL()}/lr-case-api/cases`,
 });

@@ -24,13 +24,7 @@ class CaseList extends Component {
     super(props);
     const { setLogout } = props;
     this.state = {
-      cases: [
-        // { id: 1, name: 'Case 1', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        // { id: 2, name: 'Case 2', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-        // { id: 3, name: 'Case 3', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        // { id: 4, name: 'Case 4', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        // { id: 5, name: 'Case 5', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-      ],
+      cases: [],
       active: 'true'
     };
   }
@@ -41,33 +35,51 @@ class CaseList extends Component {
 
 render() {
   
-  let items = this.state.cases;
-  
-  const getCardStyle = (item) => {
-    const statusColors = {
-      1: '#09f',
-      2:'#666',
-      3:'#c00',
-      4:'#dd6b0f',
-      5:'#164664',
+    let items = this.state.cases;
+
+    if(items.length) {
+      return (
+        <Container>
+          {this.renderCaseList(items)}
+          {this.renderAddButton()}
+        </Container>
+      )
     }
-    console.log(statusColors[item.status.number]);
-    return {borderLeftWidth:4, borderLeftColor:`${statusColors[item.status.number]}`};
+
+    return (
+      <Container>
+        <View style={{ flex: 1 }}>
+          <Text>No Cases created yet</Text>
+        </View>
+        {this.renderAddButton()}
+      </Container>
+    )
   }
 
-  const formattedDueDate = (item) => {
-    if (!item.dueDate) return;
-    
-    const  date = new Date(item.dueDate);
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-  }
+  renderCaseList(items){
+    const getCardStyle = (item) => {
+      const statusColors = {
+        1: '#09f',
+        2:'#666',
+        3:'#c00',
+        4:'#dd6b0f',
+        5:'#164664',
+      }
+      console.log(statusColors[item.status.number]);
+      return {borderLeftWidth:4, borderLeftColor:`${statusColors[item.status.number]}`};
+    }
 
-  return (
-      <Container>  
-             
+    const formattedDueDate = (item) => {
+      if (!item.dueDate) return;
+      
+      const  date = new Date(item.dueDate);
+      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    }
+
+    return (
           <List dataArray = {items} 
             renderRow={(item) => 
-            <ListItem style={{borderBottomWidth:0}}>
+            <ListItem style={{borderBottomWidth:0, paddingVertical:0}}>
               <Content>
                 <Card style={getCardStyle(item)}>
                   <CardItem>                    
@@ -116,59 +128,27 @@ render() {
             </ListItem>
             }
           >
-          </List>          
-        
-        <View style={{ flex: 1 }}>
-            <Fab
-              active={this.state.active}
-              direction="up"
-              containerStyle={{ }}
-              style={{ backgroundColor: '#5067FF' }}
-              position="bottomRight"
-              onPress={()=>Actions.createCase()}>
-              <Icon name="add" />
-            </Fab>
-          </View>
-      </Container>
-  )}
+          </List>
+    )
+  }
+
+  renderAddButton() {
+    return (
+      <View style={{ flex: 1 }}>
+        <Fab
+          active={this.state.active}
+          direction="up"
+          containerStyle={{ }}
+          style={{ backgroundColor: '#5067FF' }}
+          position="bottomRight"
+          onPress={()=>Actions.createCase()}>
+          <Icon name="add" />
+        </Fab>
+      </View>
+    )
+  }
 }
 
-//   render() {
-//     return (
-//       <Container>      
-//       <Content>
-//         <Card>
-//           <CardItem>
-//             <Left>              
-//               <Body>
-//                 <Text>This is a case</Text>
-//                 <Text note>Incident</Text>
-//               </Body>
-//             </Left>
-//           </CardItem>         
-//           <CardItem>
-//             <Left>
-//               <Button transparent>
-//                 <Icon active name="thumbs-up" />
-//                 <Text>Priority : 3</Text>
-//               </Button>
-//             </Left>
-//             {/* <Body>
-//               <Button transparent>
-//                 <Icon active name="chatbubbles" />
-//                 <Text>4 Comments</Text>
-//               </Button>
-//             </Body> */}
-//             <Right>
-//               <Text>11h ago</Text>
-//             </Right>
-//           </CardItem>
-//         </Card>
-//       </Content>
-//     </Container>
-//   )}
-// }
-{()=>{console.log("On Press");Actions.caseDetail({selectedCase:item})}}
 
 const styles = StyleSheet.create({
   viewStyle: {

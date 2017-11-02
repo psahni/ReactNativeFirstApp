@@ -14,25 +14,12 @@ export const authenticate = (userName, password) => {
 
     return fetchFromService(routes().login, '', { userName, password })
         .then((data) => {
+            console.log("This is response", data)
             token = data.accessToken;
             console.log("Data is : " , data);
             return data;
         });
 }
-
-
-// export const authenticate = (userName, password) => {
-//     console.log("Request receied " , userName , password);    
-
-//     return fetchFromService(routes.login, '', { userName, password })
-//         .then((data) => {
-//             token = data.token;
-//             console.log("Data is : " , data);
-//             return data;
-//         }).catch((err)=>{
-//         	console.log(err);
-//         });
-// }
 
 export const getToken = () => {
     return token;

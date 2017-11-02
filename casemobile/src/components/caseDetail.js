@@ -141,7 +141,7 @@ class CaseDetail extends Component {
                 editable={false}
               />
             </Item>
-            <Item style={{borderBottomWidth:0,marginTop: 25}}>            
+            <Item style={{borderBottomWidth:0,marginTop: 10, marginBottom:10}}>            
             </Item>            
             <Button full 
             onPress={() => this.updateStatus(this.state.caseid,{statusNumber:this.state.completed})}
