@@ -8,6 +8,7 @@ import CaseList from './cases';
 import { View, Button } from 'react-native';
 import { getBaseURL } from '../config.js';
 import {colors} from '../utils/colors';
+import TabsAdvancedExample from './tabs';
 
 const RouterComponent = () => (
   <Router>    
@@ -16,6 +17,7 @@ const RouterComponent = () => (
       <Scene key='cases' component={CaseList} title="Case List" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: colors.bgHeader}} onRight={() => {console.log(" TExt")}} rightButtonImage={require('./menu-alt-512.png')} rightButtonIconStyle={{width: 30, height: 30}}/>
       <Scene key='caseDetail' component={CaseDetail} title="Case Properties" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: colors.bgHeader}} onRight={() => {console.log(" TExt")}} rightButtonImage={require('./menu-alt-512.png')} rightButtonIconStyle={{width: 30, height: 30}}/>
       <Scene key='createCase' component={CreateCase} title="Create Case" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: colors.bgHeader}} onRight={() => {console.log(" TExt")}} rightButtonImage={require('./menu-alt-512.png')} rightButtonIconStyle={{width: 30, height: 30}}/>
+      <Scene key='tabs' component={TabsAdvancedExample} title="List" titleStyle={{color: 'white'}} navigationBarStyle={{ backgroundColor: '#303f9f'}} onRight={() => Actions.home()} rightTitle = "LogOut" rightButtonTextStyle={{color: 'white'}}/>
      </Scene>        
   </Router>
 );
