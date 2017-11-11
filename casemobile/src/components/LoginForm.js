@@ -28,6 +28,7 @@ class LoginForm extends Component {
     authenticate(userName, password)
     .then(()=>{
       Actions.tabs();
+      ///Actions.dashboard();
     })
     .catch(()=>{
       Alert.alert('Invalid Credentials', 'Either Email or Passowrd is incorrect',[      
