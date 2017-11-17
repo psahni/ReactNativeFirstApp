@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right,View,Fab } from 'native-base';
+import RadioForm from 'react-native-radio-form';
+import { Container, Header, Content, List, ListItem, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right,View,Fab, Radio,Item,Label,Footer,FooterTab} from 'native-base';
 import Accordion from 'react-native-collapsible/Accordion';
 import { Actions } from 'react-native-router-flux';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 import { StyleSheet } from 'react-native';
+
+const mockData = [
+  {
+      label: 'New',
+      value: 'New'
+  },
+  {
+      label: 'Open',
+      value: 'Open'
+  },
+  {
+      label: 'Closed',
+      value: 'Closed'
+  }
+];
 
 class AlarmCards extends Component {
    componentWillMount() {
-    //console.log('2. componentWillMount in Case List', this.state.cases);
-    //getCases().then((allcases) =>{
-     // console.log("All alarms are : ", allcases);
-      //console.log("All cases length : ", allcases.length);
-      // let reversedArr =[];
-      // for(let arrLength = allcases.length; arrLength > 0; arrLength--){        
-      //   reversedArr.push(allcases[arrLength]);
-      //   console.log("Reversed Arry : ", reversedArr.length);
-      // }
-      // console.log("reversedArr ",reversedArr);
-      // let spliced = reversedArr.slice(0,5);            
-      // console.log("spliced ", spliced);
-      //this.setState({cases:allcases});
-      //this.setState({cases:allcases.reverse()});
-    //});
   }
 
   constructor(props) {
@@ -29,18 +31,22 @@ class AlarmCards extends Component {
     const { setLogout } = props;
     this.state = {
       alarms: [
-        { id: 1, name: 'Alarm 1', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        { id: 2, name: 'Alarm 2', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-         { id: 3, name: 'Alarm 3', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-         { id: 4, name: 'Alarm 4', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-        { id: 5, name: 'Alarm 5', summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
+        { AlarmId: 100, AlarmName: 'Private Alarm 1', AlarmRisk: 35, AlarmEntity: 'Primary Site', AlarmStatus: 'Open', TrigerredDate: '11/14/2017', TrigerredTime: '5:34:47 am'},
+        { AlarmId: 110, AlarmName: 'Private Alarm 2', AlarmRisk: 50, AlarmEntity: 'Primary Site', AlarmStatus: 'New', TrigerredDate: '11/14/2017', TrigerredTime: '5:45:47 am'},
+        { AlarmId: 120, AlarmName: 'Private Alarm 3', AlarmRisk: 29, AlarmEntity: 'Primary Site', AlarmStatus: 'Closed', TrigerredDate: '11/14/2017', TrigerredTime: '5:15:47 am'},
+        { AlarmId: 130, AlarmName: 'Private Alarm 4', AlarmRisk: 67, AlarmEntity: 'Primary Site', AlarmStatus: 'New', TrigerredDate: '11/14/2017', TrigerredTime: '5:10:47 am'},
+        { AlarmId: 140, AlarmName: 'Private Alarm 5', AlarmRisk: 79, AlarmEntity: 'Primary Site', AlarmStatus: 'New' , TrigerredDate: '11/14/2017', TrigerredTime: '5:05:47 am'},
       ],
       active: 'true'
     };
   }
 
+  _onSelect = ( item ) => {
+    console.log(item);      
+    this.setState({AlarmStatus:item});
+  };  
+
   render() {
-  //var items = [{name:'Simon Mignolet',prio:1},{name:'Nathaniel Clyne',prio:2},{name:'Dejan Lovren',prio:3},{name:'Mama Sakho',prio:2},{name:'Emre Can',prio:1}];
   let items = this.state.alarms;
   
   const getCardStyle = (item) => {
@@ -51,8 +57,6 @@ class AlarmCards extends Component {
       4:'#dd6b0f',
       5:'#164664',
     }
-    //console.log(statusColors[item.status.number]);
-    //return {borderLeftWidth:2, borderLeftColor:`${statusColors[item.status.number]}`};
   }
 
   
@@ -64,50 +68,57 @@ class AlarmCards extends Component {
             renderRow={(item) => 
             <ListItem>
               <Content>
-                <Card style={getCardStyle(item)} onTouchStart={()=>{console.log("On Press");Actions.caseDetail({selectedCase:item})}}>
+                <Card style={getCardStyle(item)}>
+                <CardItem header>
+                <Row style={{justifyContent: 'center',alignItems: 'center'}}>   
+                <Text style={{fontWeight:'bold'}}>{item.AlarmName}</Text>
+                </Row>
+            </CardItem>
+         
                   <CardItem>
-                    <Left>              
-                      <Body>
-                        <Text>{item.name}</Text>
-                        <Text note>{`${item.name}`}</Text>
-                      </Body>
+                    <Left>  
+                    <Col size={2}>                      
+                      <Row size={3}>                      
+                          <Text style={{fontWeight:'bold',fontSize:40}}>{item.AlarmRisk}</Text>                      
+                      </Row>
+                      <Row size={1}>
+                        <Label style={{fontWeight:'bold',left:16}}>Risk</Label>
+                      </Row>
+                    </Col>
                     </Left>
+                    <Col size = {1}/>
+                    <Col size={4}>                                                    
+                          <Row>
+                          <Text>ID : {item.AlarmId}</Text>
+                            </Row>
+                            <Row>                          
+                            <Text >Status : {item.AlarmStatus}</Text>
+                          </Row>
+                            <Row>
+                          <Text>Entity : {item.AlarmEntity}</Text>
+                            </Row>
+                            <Row>
+                          <Text>Trigerred Date : {item.TrigerredDate}</Text>
+                            </Row>
+                            <Row>
+                          <Text>Trigerred Time : {item.TrigerredTime}</Text>
+                            </Row>
+                        </Col>
                   </CardItem>
-                  <CardItem>
-                    <Left>
-                      <Body>
-                        <Content>
-                        <Button large transparent>
-                          <Text>P : {item.priority}</Text>
-                        </Button>                          
-                        </Content>                        
-                      </Body>
-                    </Left>
-                  </CardItem>           
-                  <CardItem>
-                    <Left>
-                      <Body>                      
-                        <Text>Due On :</Text>                      
-                      </Body>
-                    </Left>                                                            
-                  </CardItem>
+                  <CardItem footer>
+                  <Button transparent style={{justifyContent: 'center',alignItems: 'center'}}>
+                 
+                  <Text>SmartResponse Not Set</Text>
+                
+                </Button>
+                </CardItem>
                 </Card>
               </Content>
             </ListItem>
             }
           >
           </List>
-          <View style={{ flex: 1 }}>
-            <Fab
-              active={this.state.active}
-              direction="up"
-              containerStyle={{ }}
-              style={{ backgroundColor: '#5067FF' }}
-              position="bottomRight"
-              onPress={()=>Actions.createCase()}>
-              <Icon name="add" />
-            </Fab>
-          </View>
+         
       </Container>
   )}
 }
