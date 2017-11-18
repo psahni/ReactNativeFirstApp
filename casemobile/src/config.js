@@ -32,7 +32,6 @@ const setServerDetails = (protocol, server, port) => {
 }
 
 const getBaseURL = () => {
-    console.log("get base url", BASE_URL);
     return BASE_URL;
 }
 

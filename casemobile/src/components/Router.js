@@ -8,11 +8,8 @@ import CaseList from './cases';
 import { View, Button } from 'react-native';
 import { getBaseURL } from '../config.js';
 import {colors} from '../utils/colors';
-<<<<<<< HEAD
 import TabsAdvancedExample from './tabs';
-=======
 import Dashboard from './dashboard';
->>>>>>> case-app
 
 const RouterComponent = () => (
   <Router>    

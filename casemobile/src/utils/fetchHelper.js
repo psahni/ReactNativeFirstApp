@@ -19,7 +19,7 @@ const throwIfNotOk = (response) => {
 };
 
 export const fetchFromService = (route, token = '', data = {}) => {
-    console.log("fetch ser ", data);
+    console.log("fetch service ", data);
     const bearerToken = `Bearer ${getToken()}`;
     const reqHeaders = new Headers();
     reqHeaders.append("Accept","application/json");
