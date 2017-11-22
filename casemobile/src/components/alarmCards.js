@@ -10,37 +10,23 @@ import { DATA as AlarmData } from '../../alarmsData.js'
 import { getAlarms } from '../alarmactions';
 import  AlarmCard  from './AlarmCard.js';
 
-const mockData = [
-  {
-      label: 'New',
-      value: 'New'
-  },
-  {
-      label: 'Open',
-      value: 'Open'
-  },
-  {
-      label: 'Closed',
-      value: 'Closed'
-  }
-];
+const getAlarmFilters = {
+  '24 Hours' : '24H',
+  '1 Week'   : '1W',
+  '24 Months': '24M'
+}
 class AlarmCards extends Component {
   
-  componentWillMount() {
-    console.log("* component will mount");
-    
-    getAlarms().then((data) => {
-      //console.log("data = ", data);
-      console.log(AlarmData.items);
-      
-      this.setState({alarms: AlarmData.items});
+  componentWillMount() {    
+    getAlarms(getAlarmFilters['24 Hours']).then((data) => {
+      //.console.log(AlarmData.items);      
+      this.setState({alarms: data.items});
     }).catch((error) => {
       console.log("ERROR:- ", error)
     });
   }
 
   constructor(props) {
-    console.log("* constructor");
     super(props);
     const { setLogout } = props;
     this.state = {

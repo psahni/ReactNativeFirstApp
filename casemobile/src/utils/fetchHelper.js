@@ -19,7 +19,7 @@ const throwIfNotOk = (response) => {
 };
 
 export const fetchFromService = (route, token = '', data = {}) => {
-    console.log("fetch service ", data);
+    console.log("fetch service ", JSON.stringify(data));
     const bearerToken = `Bearer ${getToken()}`;
     const reqHeaders = new Headers();
     reqHeaders.append("Accept","application/json");
@@ -34,10 +34,10 @@ export const fetchFromService = (route, token = '', data = {}) => {
     };
 
     if (token) {
-        fetchConfig.append('authentication', token);
-
+      fetchConfig.append('authentication', token);
     }
-    console.log("Fetch congig ", fetchConfig, route.path);
+    
+    console.log("Fetch From Service:- ", fetchConfig, route.path);
     return fetch(route.path, fetchConfig)
         .then(throwIfNotOk)
         .then(response => response.json());
